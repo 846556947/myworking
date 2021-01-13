@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .btn {
+        color: #fff;
+        background-color: skyblue;
+        text-align: center;
+        line-height: 25px;
+        border-radius: 5px;
+        border: none;
+    }
+    
+    table {
+        border-collapse: collapse;
+    }
+    
+    thead th {
+        background-color: skyblue;
+        border: none;
+        width: 600px;
+        height: 50px;
+        text-align: center;
+    }
+    
+    table button {
+        background-color: skyblue;
+        border: none;
+        border-radius: 5px;
+        width: 60px;
+        height: 30px;
+        margin-top: 10px;
+    }
+    
+    tbody tr:nth-of-type(odd) {
+        background-color: gainsboro;
+    }
+    
+    span {
+        color: red;
+    }
+</style>
+<script src="js/vue.js"></script>
+
+<body>
+    <div id="box">
+        <fieldset>
+            <legend>学生录入系统</legend>
+            <p>
+                姓名: <input type="text" placeholder="user" v-model='names' @input="rest('names')"> <span v-show='!names'>4到16位(字母,数字,下划线)</span>
+            </p>
+            <p>
+                年龄: <input type="text" placeholder="0" v-model='ages' @input="rest('ages')"> <span v-show='!ages'>输入你的年龄(0~120)</span>
+            </p>
+            <p>
+                性别: <select v-model='sexs'>
+                   <OPtion>男</OPtion>
+                   <OPtion>女</OPtion>
+               </select>
+            </p>
+            <p>
+                手机: <input type="text" v-model='tels' @input="rest('tels')"> <span v-show='!tels'>手机格式不正确</span>
+            </p>
+            <button class="btn" @click='add()'>创建新用户</button>
+        </fieldset>
+        <table border="0">
+            <thead>
+                <tr>
+                    <th>姓名</th>
+                    <th>性别</th>
+                    <th>年龄</th>
+                    <th>手机</th>
+                    <th>删除</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for='(item,index) in preson'>
+                    <th>{{item.name}}</th>
+                    <th>{{item.sex}}</th>
+                    <th>{{item.age}}</th>
+                    <th>{{item.tel}}</th>
+                    <th> <button @click='remove()'>删除</button></th>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+<script>
+    let vm = new Vue({
+        el: '#box',
+        data: {
+
+            preson: [{
+                name: "方君昊",
+                sex: '男',
+                age: '20',
+                tel: "15473124380",
+                rem: false
+            }, {
+                name: "乔向雁",
+                sex: '女',
+                age: '22',
+                tel: "15373124380",
+                rem: false
+            }, {
+                name: "鲁傲柔",
+                sex: '男',
+                age: '23',
+                tel: "15273124380",
+                rem: false
+            }, {
+                name: "寸琴韵",
+                sex: '女',
+                age: '21',
+                tel: "15173124380",
+                rem: false
+            }],
+            names: "",
+            sexs: '男',
+            ages: '',
+            tels: "",
+            rems: false,
+
+            check: {
+                names: '',
+                ages: '',
+                tels: ""
+            },
+
+        },
+
+        methods: {
+            remove(index) {
+                this.preson.splice(index, 1)
+            },
+            add() {
+                if (this.names && this.ages && this.tels) {
+                    this.preson.push({
+                        name: this.names,
+                        sex: this.sexs,
+                        age: this.ages,
+                        tel: this.tels,
+                        rem: false
+                    })
+                }
+
+            },
+            rest(id) {
+                let phone = /^1[3456789]\d{9}$/;
+                let name = /^[\u4e00-\u9fa5]{0,}$/;
+                if (id == "tels") {
+                    console.log(this.preson.rem = phone.test(this.tels))
+                    return
+                } else if (id == "ages") {
+                    // console.log(this.ages)
+                    if (this.ages > 0 && this.ages <= 120) {
+                        console.log(this.check.ages = true)
+                        return
+                    }
+                    console.log(this.check.ages = false);
+                    return
+                } else if (id == 'names') {
+                    this.check.names = name.test(this.names)
+                    console.log(name.test(this.names));
+                    return
+                }
+            }
+        }
+    })
+</script>
+
+</html>

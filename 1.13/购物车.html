@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        
+        thead th {
+            background-color: skyblue;
+            border: none;
+            width: 200px;
+            height: 50px;
+            text-align: center;
+        }
+        
+        span {
+            float: left;
+            margin-left: 25px;
+        }
+        
+        tbody tr:nth-of-type(odd) {
+            background-color: gainsboro;
+        }
+    </style>
+</head>
+<script src="js/vue.js"></script>
+
+<body>
+    <div id="box">
+        <table border="0">
+            <thead>
+                <tr>
+                    <th>商品名称</th>
+                    <th>商品单价</th>
+                    <th>商品数量</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for='(item,index) in product '>
+                    <th><span>{{item.num}}</span>{{item.name}} </th>
+                    <th>{{item.Price}}</th>
+                    <th>
+                        <button>-</button> {{item.sum}}
+                        <button>+</button>
+                    </th>
+                    <th><button>移除</button></th>
+                </tr>
+            </tbody>
+        </table>
+        <div>
+            <p>
+                总价:￥ {{Totalprice}}
+            </p>
+        </div>
+    </div>
+</body>
+<script>
+    let vm = new Vue({
+        el: '#box',
+        data: {
+            product: [{
+                num: '1',
+                name: 'iPhone X',
+                Price: '7999',
+                sum: '1'
+            }, {
+                num: '1',
+                name: '荣耀 10',
+                Price: '2399',
+                sum: '1'
+            }, {
+                num: '1',
+                name: '华为 P20',
+                Price: '3399',
+                sum: '1'
+            }, {
+                num: '1',
+                name: '小米 8',
+                Price: '3999',
+                sum: '1'
+            }, ],
+            Totalprice: "0"
+        },
+        methods: {
+
+        }
+    })
+</script>
+
+</html>
