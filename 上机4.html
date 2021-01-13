@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        p{
+            font-size: 30px;
+        }
+    </style>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="box">
+        <p @click='down()' ><img src="image/pic.png" alt="">{{msg.title}}</p>
+        <p v-show='msg.active'>
+            <input type="text" name="" id="" v-model='msg.title'>
+        </p>
+    </div>
+</body>
+<script>
+    let vm =new Vue({
+        el:'#box',
+        data:{
+            msg:{title:'Edit Me',active:false}
+        },
+        methods:{
+           down(){
+                
+                this.msg.active=!this.msg.active
+           }
+        }
+    })
+</script>
+</html>

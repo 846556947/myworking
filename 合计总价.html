@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #box {
+            background-color: #61a1bc;
+            width: 400px;
+            height: 500px;
+            position: absolute;
+
+        }
+
+        p {
+            margin: 25px 25px;
+            height: 50px;
+            background-color: hotpink;
+            padding: 0 10px;
+            line-height: 50px;
+        }
+
+        span {
+            float: right;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .green {
+            background-color: lawngreen;
+        }
+
+        .sum {
+            margin: 25px 25px;
+            height: 50px;
+            padding: 0 10px;
+            border-top: 1px solid #ffffff;
+        }
+    </style>
+</head>
+<script src="js/vue.js"></script>
+
+<body>
+    <div id="box">
+        <h1> {{title}} </h1>
+        <p v-for='(item,index) in book' @click='up(index)' :class='{green:item.active}' :key="book.index">
+            {{item.name}}
+            <span>
+                {{item.prics}}
+            </span>
+        </p>
+        <div class="sum">
+            Total: <span>{{sum()}}</span>
+        </div>
+    </div>
+
+    <script>
+        let vm = new Vue({
+            el: '#box',
+            data: {
+                book: [
+                    { name: 'Web Development', prics: 3000, active: false },
+                    { name: 'Python', prics: 1000, active: false },
+                    { name: 'Java', prics: 2000, active: false },
+                    { name: 'GO', prics: 2200, active: false }
+                ],
+                Total: 1000,
+                title: 'Services'
+            },
+            methods: {
+                up(index) {
+                    this.book[index].active = !this.book[index].active
+                },
+                sum(){
+                    let sum = 0;
+                    this.book.forEach(item=>{
+                        if(item.active){
+                        sum+=item.prics
+                    }
+                    })
+                    
+                    return sum
+                }
+                
+            }
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .finish{
+            color: grey;
+            text-decoration: line-through;
+        }
+
+    </style>
+</head>
+<script src="js/vue.js"></script>
+<body>
+    <div id="box">
+        <h1>任务列表</h1>
+        <p>
+            任务总数{{ arr.length }};还有{{unFinish()}}未完成【 <a href="#" @click='Finish()'>完成</a> 】
+        </p>
+        <ul>
+            <li v-for='(item,index) in arr'>
+                <input type="checkbox" v-model='item.doFinish'>
+                <span v-show='!item.doEdit':class='{finish:item.doFinish}'@click='edit(index)'>{{item.title}}</span>
+                <input type="text" v-show='item.doEdit' v-model='item.title'@blur='item.doEdit=false'>
+            </li>
+        </ul>
+        <input type="text" v-model='msg'> <button @click='add()'>添加</button>
+    </div>
+</body>
+<script>
+    let vm =new Vue({
+        el:'#box',
+        data:{
+            arr:[
+                {title:'设计1',doFinish:true,doEdit:false},
+                {title:'设计2',doFinish:false,doEdit:false},
+                {title:'设计3',doFinish:false,doEdit:false}
+            ],
+            msg:''
+        },
+        methods:{
+            unFinish(){
+                let sum=0;
+                this.arr.forEach(item => {
+                    if(!item.doFinish)sum++;
+                    
+                })
+                return sum
+            },
+            Finish(){
+                let newarr=this.arr
+                this.arr=[];
+                newarr.forEach(item=>{
+                    if(!item.doFinish){
+                        this.arr.push(item)
+                    }
+                })
+            },
+            add(){
+                this.arr.push({title:this.msg,doFinish:false})
+                this.msg=''
+            },
+           edit(index){
+               if(this.arr[index].doFinish)return;
+               this.arr[index].doEdit=true
+           }
+        }
+    })
+</script>
+</html>

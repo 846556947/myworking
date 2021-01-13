@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/vue.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+       .header{
+           font-size: 25px;
+           line-height: 55px;
+       }
+        ul{
+            height: 100%;
+            width: 255px;
+        }
+        li{
+            line-height: 35px;
+            background-color: #C81622;
+            color: #fff;
+            padding-left: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <ul>
+            <li class="header">{{nav.title}}</li>
+            <li v-for="(item,index) in text">
+                    {{item.name}}
+            </li>
+        </ul>
+    </div>
+</body>
+<script>
+    let vm = new Vue ({
+        el:"#box",
+        data:{
+            nav:{title:'全部商品分类'},
+            text:[
+                {name:'家用电器'},
+                {name:'手机 数码 相机'},
+                {name:'电脑 办公'},
+                {name:'家居 家具 家装'},
+                {name:'男装 女装 珠宝'},
+                {name:'鞋靴 箱包 钟表'}
+
+            ]
+        },
+
+    })
+</script>
+</html>
